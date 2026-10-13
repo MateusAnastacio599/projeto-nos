@@ -1,0 +1,22 @@
+Imagem: proposta-16bit.png
+Ferramenta: Imagegen integrada, edição com três referências locais.
+Saída: PNG, 2172 x 724 pixels. Três quadros de 724 x 724.
+Animação: CSS por etapas em 12 segundos, inclusive com reduzir movimentos.
+Os quadros trocam por cortes simples, sem transição ou deslizamento.
+
+REFERÊNCIAS V4
+- Arte V3: animais, cenário, estilo e sequência preservados.
+- foto7.jpg enviada pelo usuário: rostos e cabelo curto cacheado da Julia.
+- image(20261006-150756).png enviada pelo usuário: vestido azul-claro florido.
+- Roupas pedidas: camiseta preta e jeans para Mateus; All Star para ambos.
+
+PROMPT FINAL
+Use case: identity-preserve.
+Asset type: refined three-frame 16-bit pixel-art storyboard for the existing personal marriage-proposal website.
+Input 1 is the EDIT TARGET. Keep its EXACT overall 3:1 landscape layout, three equal square panels with no gutters, consistent warm cozy apartment, furniture, plants, lighting, camera and rich square-pixel style. Keep Amorinha (black shaggy dog with pink bows), Charlie (chunky cream cat, dark brown face markings, blue eyes), and Zoe (black-and-white cat on sofa) unchanged in appearance, size and placement across all panels. The user LOVES the pets; preserve them carefully.
+Input 2 foto7.jpg is the NEW primary FACE and HAIR reference for the actual couple. Man on left: short dark upward-styled hair, slender face, very light mustache/stubble. Julia on right: medium warm skin, SHORT dark tight curls, compact chin-length curly bob, small springy ringlets and curly fringe. Her hair ends at chin/jaw level and never flows down onto shoulders, chest or back. Reduce the target woman's overly long, flowing mass of curls; make the head/hair silhouette compact and clearly match this reference. Small nose piercing if readable naturally in pixels.
+Input 3 is CLOTHING reference: Julia wearing a LIGHT POWDER BLUE floral dress, orange/coral/pink flower motifs and dark green leaves, narrow straps/halter-like neckline and flowing skirt. Adapt this exact casual floral fabric and neckline into a below-knee dress. Keep her light translucent eyeglasses seen in this outfit photo.
+Man outfit requested by user: plain BLACK short-sleeve crew-neck T-shirt, MEDIUM BLUE straight-cut JEANS, BLACK canvas All-Star-style sneakers with WHITE rubber toe caps, white soles and white laces, no visible brand lettering.
+Julia outfit: powder-blue FLORAL dress as above and matching BLACK canvas All-Star-style sneakers with WHITE toe caps, soles and laces. No cream bridal gown and no brown dress shoes.
+Preserve all three original poses/narrative: panel 1 he kneels presenting ring, she surprises with hands near face; panel 2 she bends forward taking his hand, he remains kneeling; panel 3 both stand hugging lovingly. Dress length should allow both sneakers to be visible including hug lifted foot. People should be recognizable as the reference couple, retaining affectionate expressions and polished pixel-art style. Update people consistently across all three frames.
+Change only the couple's facial likeness/hair and CLOTHES/SHOES. Lock every pet and background. No added objects, people, pets, text, watermark, labels, logos or panel borders. ONE PNG, exact 3:1 ratio, three equal square aligned frames, animation-ready.

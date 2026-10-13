@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PROJETO: NÓS — Visualização de Item</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="item-viewer.css">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "./vendor/three/build/three.module.js",
+      "three/addons/": "./vendor/three/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body class="phase-unlocking item-viewer-page">
+  <div class="crt-overlay" aria-hidden="true"></div>
+  <main class="item-viewer-shell">
+    <div class="item-viewer-top">
+      <a class="system-link-button" href="index.html#home">[ ← SISTEMA ]</a>
+      <span>INVENTÁRIO // VISUALIZAÇÃO SEGURA</span>
+    </div>
+
+    <section class="item-viewer-card">
+      <div class="item-viewer-head">
+        <div>
+          <p id="viewerKicker" class="eyebrow">OBJETO NÃO CATALOGADO</p>
+          <h1 id="viewerTitle">ITEM</h1>
+        </div>
+        <button id="resetViewer" type="button">[ ALINHAR ]</button>
+      </div>
+
+      <div id="viewerStage" class="item-viewer-stage" aria-label="Visualização 3D do item">
+        <canvas id="viewerCanvas"></canvas>
+        <div id="viewerLoading" class="viewer-loading">CARREGANDO MODELO ORIGINAL...</div>
+      </div>
+
+      <p id="viewerCopy"></p>
+      <p id="viewerMeta" class="module-item-meta"></p>
+      <p class="viewer-help">Arraste para girar · roda do mouse para zoom · botão direito para mover.</p>
+    </section>
+  </main>
+  <script type="module" src="item-viewer.js"></script>
+</body>
+</html>

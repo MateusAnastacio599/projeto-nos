@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 430">
+  <defs>
+    <linearGradient id="brass" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f3d18c"/><stop offset=".25" stop-color="#9a6b37"/><stop offset=".5" stop-color="#f2c66f"/><stop offset=".78" stop-color="#604226"/><stop offset="1" stop-color="#d09b52"/></linearGradient>
+  </defs>
+  <g transform="translate(40 20) rotate(-3 480 200)">
+    <path d="M170 55 C91 55 28 118 28 197s63 142 142 142c55 0 102-31 126-77l112 3 23 35 60-8 20 42 62-17 29 38 67-18 34 28 120-42-19-68-115 8-30-33-69 18-29-42-59 14-26-39-124 4c-7-75-69-134-152-134Zm0 78a64 64 0 1 1 0 128 64 64 0 0 1 0-128Z" fill="url(#brass)" stroke="#3d291a" stroke-width="10" stroke-linejoin="round"/>
+    <path d="M306 183c65-4 107-2 155 3M532 175l17 28M652 165l18 30M761 157l20 30" fill="none" stroke="#fff0bf" stroke-width="7" opacity=".55" stroke-linecap="round"/>
+    <path d="M83 111c40-34 91-43 143-24" fill="none" stroke="#fff0bf" stroke-width="10" opacity=".45" stroke-linecap="round"/>
+  </g>
+</svg>

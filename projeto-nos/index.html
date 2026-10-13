@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROJETO: NÓS — Versão 6.0</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="phase-cold">
+
+    <!-- CAMADAS GLOBAIS -->
+    <div id="chaosOverlay" aria-hidden="true"></div>
+    <div id="screenCracks" aria-hidden="true"></div>
+    <div id="screenNoise" aria-hidden="true"></div>
+    <div class="crt-overlay" aria-hidden="true"></div>
+
+    <!-- NAVEGAÇÃO PRINCIPAL: aparece apenas depois do prólogo -->
+    <nav id="systemNav" class="system-nav hidden" aria-label="Módulos do sistema">
+        <button class="module-nav-btn active" data-module="home" data-letter-label="Início">[ INÍCIO ]</button>
+        <button class="module-nav-btn" data-module="memories" data-letter-label="Memórias">[ MEMÓRIAS REGISTRADAS ]</button>
+        <button class="module-nav-btn" data-module="features" data-letter-label="Experiências">[ EXPERIÊNCIAS COMPARTILHADAS ]</button>
+        <button class="module-nav-btn" data-module="failures" data-letter-label="Falhas">[ FALHAS CONHECIDAS ]</button>
+        <button class="module-nav-btn" data-module="report" data-letter-label="Carta">[ RELATÓRIO DE 6 ANOS ]</button>
+        <button class="module-nav-btn update-nav-btn" data-module="update" data-letter-label="Próxima página">[ NOVA ATUALIZAÇÃO ]</button>
+    </nav>
+
+    <!-- SPLASH -->
+    <section id="splash" class="screen active">
+        <div class="terminal compact-terminal">
+            <div id="bootText"></div>
+            <div id="bootProgress" class="progress-container hidden">
+                <div class="progress-bar"><div id="progressFill"></div></div>
+                <div id="progressPercent">0%</div>
+            </div>
+            <div class="screen-controls">
+                <button id="bootSkipButton">[ PULAR ]</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- CHAVE PRIMÁRIA -->
+    <section id="systemScreen" class="screen">
+        <div class="terminal compact-terminal">
+            <div class="terminal-header">
+                <span>PROJETO: NÓS</span>
+                <span>VERSÃO 6.0</span>
+            </div>
+            <div class="terminal-content">
+                <p>STATUS: <span class="green">EM EXECUÇÃO...</span></p>
+                <p>MÓDULOS DISPONÍVEIS:</p>
+                <div class="modules boot-modules">
+                    <p>[01] INICIALIZAÇÃO</p>
+                    <p>[02] MEMÓRIAS REGISTRADAS</p>
+                    <p>[03] EXPERIÊNCIAS COMPARTILHADAS</p>
+                    <p>[04] FALHAS CONHECIDAS</p>
+                    <p>[05] RELATÓRIO DE 6 ANOS</p>
+                    <p>[06] NOVA ATUALIZAÇÃO DISPONÍVEL</p>
+                </div>
+                <p>&gt; ACESSANDO HISTÓRICO DO SISTEMA...</p>
+                <p class="error">ERRO 0x001 — SEGMENTO DE MEMÓRIA CORROMPIDO.</p>
+                <p>CHAVE PRIMÁRIA NECESSÁRIA.</p>
+                <p class="hint">DICA: "O SISTEMA SE LEMBRA DO DIA EM QUE ESSA HISTÓRIA COMEÇOU."</p>
+                <label for="dateInput">INSIRA A CHAVE PRIMÁRIA:</label>
+                <div class="input-line">
+                    <span>&gt;</span>
+                    <input id="dateInput" type="text" placeholder="DD/MM/AAAA" autocomplete="off" maxlength="10">
+                </div>
+                <p id="keyError" class="error hidden">CHAVE INVÁLIDA. TENTE NOVAMENTE.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- DESCRIPTOGRAFIA -->
+    <section id="decryptScreen" class="screen">
+        <div class="terminal compact-terminal">
+            <div id="decryptText"></div>
+            <div id="decryptProgress" class="progress-container">
+                <div class="progress-bar"><div id="decryptFill"></div></div>
+                <div id="decryptPercent">0%</div>
+            </div>
+            <div class="screen-controls">
+                <button id="decryptBackButton">[ VOLTAR ]</button>
+                <button id="decryptSkipButton">[ PULAR ]</button>
+                <button id="decryptContinueButton" class="hidden">[ CONTINUAR ]</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================================
+         MÓDULOS PRINCIPAIS
+    ====================================================== -->
+
+    <!-- INÍCIO -->
+    <section id="homeScreen" class="screen module-screen" data-module-screen="home">
+        <div class="terminal workspace-terminal">
+            <div class="terminal-header">
+                <span>N.O.S. / PAINEL CENTRAL</span>
+                <span id="homeSystemStatus">EM RECUPERAÇÃO</span>
+            </div>
+            <div class="workspace-content scrollable-workspace">
+                <div class="hero-block">
+                    <p class="eyebrow">SESSÃO RECUPERADA</p>
+                    <h1>BEM-VINDA DE VOLTA, JUJUBA.</h1>
+                    <p class="page-intro">A recuperação continuará por módulos. Novos setores serão identificados conforme os dados do sistema forem reconstruídos.</p>
+                </div>
+
+                <div class="status-grid">
+                    <article class="status-card">
+                        <span class="status-kicker">MEMÓRIAS</span>
+                        <strong id="homeMemoryCount">01 / 06</strong>
+                        <small id="homeMemoryDetail">primeiro registro restaurado</small>
+                    </article>
+                    <article class="status-card">
+                        <span class="status-kicker">INTEGRIDADE</span>
+                        <strong id="homeIntegrity">27%</strong>
+                        <small id="homeIntegrityDetail">fragmentos afetivos detectados</small>
+                    </article>
+                    <article class="status-card">
+                        <span class="status-kicker">ESTADO</span>
+                        <strong id="homeState">EM RECUPERAÇÃO</strong>
+                        <small id="homeStateDetail">o sistema ainda não sabe exatamente o que está lembrando</small>
+                    </article>
+                </div>
+
+                <div class="module-path-heading">
+                    <div>
+                        <p class="eyebrow">SEQUÊNCIA DE RECUPERAÇÃO</p>
+                        <h2>MÓDULOS DO SISTEMA</h2>
+                    </div>
+                    <small>Setores indisponíveis serão liberados quando os requisitos forem atendidos.</small>
+                </div>
+
+                <div class="module-preview-grid module-progression-grid">
+                    <button class="module-preview module-complete" data-module-card="initialization" disabled>
+                        <span>01</span>
+                        <strong>INICIALIZAÇÃO</strong>
+                        <small>autenticação, chave primária e recuperação da usuária</small>
+                        <em class="module-status-label">CONCLUÍDO</em>
+                    </button>
+                    <button class="module-preview" data-go-module="memories" data-module-card="memories">
+                        <span>02</span>
+                        <strong>MEMÓRIAS REGISTRADAS</strong>
+                        <small>arquivos temporais, fragmentos e fotografias recuperadas</small>
+                        <em class="module-status-label">DISPONÍVEL</em>
+                    </button>
+                    <button class="module-preview" data-go-module="features" data-module-card="features">
+                        <span>03</span>
+                        <strong>EXPERIÊNCIAS COMPARTILHADAS</strong>
+                        <small>jogos, histórias, lugares, hábitos, companheiros e sonhos</small>
+                        <em class="module-status-label">REQUISITO NÃO ATENDIDO</em>
+                    </button>
+                    <button class="module-preview" data-go-module="failures" data-module-card="failures">
+                        <span>04</span>
+                        <strong>FALHAS CONHECIDAS</strong>
+                        <small>bugs persistentes, inconsistências e comportamentos recorrentes</small>
+                        <em class="module-status-label">REQUISITO NÃO ATENDIDO</em>
+                    </button>
+                    <button class="module-preview" data-go-module="report" data-module-card="report">
+                        <span>05</span>
+                        <strong>RELATÓRIO DE 6 ANOS</strong>
+                        <small>análise final do projeto após reconstrução do núcleo</small>
+                        <em class="module-status-label">ACESSO RESTRITO</em>
+                    </button>
+                    <button class="module-preview update-preview" data-go-module="update" data-module-card="update">
+                        <span>06</span>
+                        <strong>NOVA ATUALIZAÇÃO</strong>
+                        <small>versão futura do projeto / requisito final pendente</small>
+                        <em class="module-status-label">DADOS INSUFICIENTES</em>
+                    </button>
+                </div>
+
+                <section class="inventory-section" aria-labelledby="inventoryTitle">
+                    <div class="section-heading-row">
+                        <div>
+                            <p class="eyebrow">OBJETOS NÃO CATALOGADOS</p>
+                            <h3 id="inventoryTitle">INVENTÁRIO DE RECUPERAÇÃO</h3>
+                        </div>
+                        <span id="inventoryCounter" class="hint">0 / 3 LOCALIZADOS</span>
+                    </div>
+                    <p class="visual-archive-copy">Alguns módulos parecem conter objetos sem classificação. A finalidade ainda é desconhecida.</p>
+                    <div class="inventory-grid">
+                        <button type="button" class="inventory-slot" data-item-slot="memories" aria-disabled="true"><span>ITEM 01</span><strong>???</strong><small>origem: memórias registradas</small><em>INSPECIONAR</em></button>
+                        <button type="button" class="inventory-slot" data-item-slot="features" aria-disabled="true"><span>ITEM 02</span><strong>???</strong><small>origem: experiências compartilhadas</small><em>INSPECIONAR</em></button>
+                        <button type="button" class="inventory-slot" data-item-slot="failures" aria-disabled="true"><span>ITEM 03</span><strong>???</strong><small>origem: falhas conhecidas</small><em>INSPECIONAR</em></button>
+                    </div>
+                    <button id="finalPuzzleButton" class="final-puzzle-button" disabled>[ PROTOCOLO FINAL INDISPONÍVEL ]</button>
+                </section>
+            </div>
+        </div>
+    </section>
+
+    <!-- MEMÓRIAS REGISTRADAS -->
+    <section id="memoriesScreen" class="screen module-screen" data-module-screen="memories">
+        <div class="terminal workspace-terminal">
+            <div class="terminal-header">
+                <span>MÓDULO: MEMÓRIAS REGISTRADAS</span>
+                <span id="memoryArchiveStatus">ARQUIVOS LOCALIZADOS: 06</span>
+            </div>
+            <div class="workspace-content scrollable-workspace">
+                <div class="page-heading">
+                    <div>
+                        <p class="eyebrow">ARQUIVO TEMPORAL</p>
+                        <h2>MEMÓRIAS REGISTRADAS</h2>
+                    </div>
+                    <p id="memoryModuleDescription">Os arquivos ainda não foram totalmente identificados. Cada restauração pode revelar novos registros, títulos e fragmentos visuais.</p>
+                </div>
+
+                <div id="memoryGrid" class="memory-grid">
+                    <button class="memory-card restored" data-memory="1" data-title="O INÍCIO (VAN)" data-description="primeiros registros / 12 anos / sujeito B">
+                        <span class="memory-number">001</span>
+                        <span class="memory-state">RESTAURADA</span>
+                        <strong>O INÍCIO (VAN)</strong>
+                        <small>primeiros registros / 12 anos / sujeito B</small>
+                    </button>
+                    <button class="memory-card" data-memory="2" data-title="PRIMEIRAS EVIDÊNCIAS" data-description="registro em revisão">
+                        <span class="memory-number">002</span>
+                        <span class="memory-state">NÃO IDENTIFICADA</span>
+                        <strong>????????</strong>
+                        <small>dados insuficientes</small>
+                    </button>
+                    <button class="memory-card" data-memory="3" data-title="PRIMEIRO ENCONTRO" data-description="registro em revisão">
+                        <span class="memory-number">003</span>
+                        <span class="memory-state">NÃO IDENTIFICADA</span>
+                        <strong>????????</strong>
+                        <small>dados insuficientes</small>
+                    </button>
+                    <button class="memory-card corrupted" data-memory="4" data-title="A RASTEIRA" data-description="protocolo de ancoragem necessário">
+                        <span class="memory-number">004</span>
+                        <span class="memory-state">DADOS CORROMPIDOS</span>
+                        <strong>[ DADOS CORROMPIDOS ]</strong>
+                        <small>âncora temporal ausente</small>
+                    </button>
+                    <button class="memory-card" data-memory="5" data-title="INCIDENTE DO BANHEIRO" data-description="registro em revisão">
+                        <span class="memory-number">005</span>
+                        <span class="memory-state">NÃO IDENTIFICADA</span>
+                        <strong>????????</strong>
+                        <small>dados insuficientes</small>
+                    </button>
+                    <button class="memory-card" data-memory="6" data-title="ARQUIVO 006" data-description="conteúdo ainda será definido">
+                        <span class="memory-number">006</span>
+                        <span class="memory-state">NÃO IDENTIFICADA</span>
+                        <strong>????????</strong>
+                        <small>dados insuficientes</small>
+                    </button>
+                </div>
+
+                <section class="visual-archive-section">
+                    <div class="section-heading-row">
+                        <div>
+                            <p class="eyebrow">SUBSISTEMA VISUAL</p>
+                            <h3>FRAGMENTOS RECUPERADOS</h3>
+                        </div>
+                        <span class="hint">CLIQUE EM UMA IMAGEM PARA AMPLIAR</span>
+                    </div>
+                    <p class="visual-archive-copy">O subsistema visual ainda está incompleto. Novos fragmentos serão adicionados automaticamente conforme mais memórias forem restauradas.</p>
+                    <div id="memoryWall" class="memory-wall" aria-label="Parede de fotografias recuperadas"></div>
+                </section>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- EXPERIÊNCIAS COMPARTILHADAS -->
+    <section id="featuresScreen" class="screen module-screen" data-module-screen="features">
+        <div class="terminal workspace-terminal">
+            <div class="terminal-header">
+                <span>MÓDULO: EXPERIÊNCIAS COMPARTILHADAS</span>
+                <span id="experiencesStatus">REGISTRADAS: 0 / 06</span>
+            </div>
+
+            <div class="workspace-content scrollable-workspace">
+                <div class="page-heading">
+                    <div>
+                        <p class="eyebrow">ARQUIVOS DE PADRÕES COMPARTILHADOS</p>
+                        <h2>EXPERIÊNCIAS COMPARTILHADAS</h2>
+                    </div>
+                    <p>
+                        Algumas coisas deixaram de ser apenas atividades e começaram a fazer parte da nossa história.
+                        Cada arquivo registrado libera o próximo.
+                    </p>
+                </div>
+
+                <div class="experience-portal-grid experience-hub-grid" aria-label="Arquivos de experiências compartilhadas">
+                    <a class="experience-portal-card experience-hub-card" data-experience-hub-card="jogos" href="experiencias.html#jogos">
+                        <span class="memory-number">01</span>
+                        <span class="memory-state experience-hub-state">DISPONÍVEL</span>
+                        <strong>JOGOS</strong>
+                        <small>mundos, campanhas e modo cooperativo</small>
+                    </a>
+
+                    <a class="experience-portal-card experience-hub-card" data-experience-hub-card="series" href="experiencias.html#series">
+                        <span class="memory-number">02</span>
+                        <span class="memory-state experience-hub-state">AGUARDANDO</span>
+                        <strong>SÉRIES QUE VIRARAM NOSSAS</strong>
+                        <small>maratonas, referências e histórias que ficaram</small>
+                    </a>
+
+                    <a class="experience-portal-card experience-hub-card" data-experience-hub-card="comidas" href="experiencias.html#comidas">
+                        <span class="memory-number">03</span>
+                        <span class="memory-state experience-hub-state">AGUARDANDO</span>
+                        <strong>CAFÉS, RESTAURANTES & RECEITAS</strong>
+                        <small>Tour, receitas, cafés e o hobby que continua engordando</small>
+                    </a>
+
+                    <a class="experience-portal-card experience-hub-card" data-experience-hub-card="companheiros" href="experiencias.html#companheiros">
+                        <span class="memory-number">04</span>
+                        <span class="memory-state experience-hub-state">AGUARDANDO</span>
+                        <strong>BICHINHOS</strong>
+                        <small>Amora, Zoe, Chachá e arquivos afetivos permanentes</small>
+                    </a>
+
+                    <a class="experience-portal-card experience-hub-card" data-experience-hub-card="cantinho" href="experiencias.html#cantinho">
+                        <span class="memory-number">05</span>
+                        <span class="memory-state experience-hub-state">AGUARDANDO</span>
+                        <strong>NOSSO CANTINHO</strong>
+                        <small>um sonho em construção e recursos sendo guardados</small>
+                    </a>
+
+                    <a class="experience-portal-card experience-hub-card" data-experience-hub-card="coisas" href="experiencias.html#coisas">
+                        <span class="memory-number">06</span>
+                        <span class="memory-state experience-hub-state">AGUARDANDO</span>
+                        <strong>COISAS NOSSAS</strong>
+                        <small>quando já não faz sentido separar tudo em caixas</small>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- FALHAS CONHECIDAS -->
+    <section id="failuresScreen" class="screen module-screen" data-module-screen="failures">
+        <div class="terminal workspace-terminal corrupted-terminal">
+            <div class="terminal-header danger-header">
+                <span>MÓDULO: FALHAS CONHECIDAS</span>
+                <span>COMPORTAMENTOS PERSISTENTES</span>
+            </div>
+            <div class="workspace-content">
+                <div id="failuresText" class="typed-page-text"></div>
+                <div id="failureCards" class="failure-card-grid hidden" aria-live="polite"></div>
+                <div id="failureStepControls" class="screen-controls failure-step-controls hidden">
+                    <button id="failureNextButton">[ PRÓXIMA FALHA ]</button>
+                </div>
+                <div id="failureConclusion" class="failure-conclusion hidden"></div>
+                <div id="failureRewardCard" class="module-reward-card compact-reward-card hidden">
+                    <p class="eyebrow">RECOMPENSA DE MÓDULO</p>
+                    <h3>ITEM 03 — CHAVE</h3>
+                    <p>Uma chave comum foi recuperada junto aos registros deste módulo. Nada nela parece especial — o importante provavelmente é encontrar onde ela encaixa.</p>
+                    <button id="completeFailuresButton">[ GUARDAR CHAVE ]</button>
+                </div>
+                <div id="failureFinalPanel" class="failure-final-panel hidden">
+                    <p class="eyebrow">MÓDULO CONCLUÍDO</p>
+                    <h3>TODOS OS OBJETOS NECESSÁRIOS FORAM RECUPERADOS.</h3>
+                    <p>Retorne ao início. O protocolo final já pode ser iniciado pelo painel central.</p>
+                    <button id="failureReturnHome">[ VOLTAR AO INÍCIO ]</button>
+                </div>
+                <div id="failurePageControls" class="screen-controls page-controls">
+                    <button class="pageSkipButton" data-skip-page="failures">[ PULAR ]</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RELATÓRIO DE 6 ANOS / CARTA -->
+    <section id="reportScreen" class="screen module-screen report-letter-screen" data-module-screen="report">
+        <div class="report-letter-stage">
+            <button id="reportEnvelope" class="report-envelope" type="button" aria-label="Abrir carta de Mateusinho colorado">
+                <div class="report-envelope-back"></div>
+                <div class="report-envelope-letter-peek">
+                    <span>para a minha Jujuba</span>
+                    <small>seis anos guardados aqui dentro</small>
+                </div>
+                <div class="report-envelope-pocket report-envelope-pocket-left"></div>
+                <div class="report-envelope-pocket report-envelope-pocket-right"></div>
+                <div class="report-envelope-pocket report-envelope-pocket-bottom"></div>
+                <div class="report-envelope-flap"></div>
+                <div class="report-envelope-thread" aria-hidden="true"></div>
+                <div class="report-wax-seal" aria-hidden="true"><span>M</span></div>
+                <div class="report-envelope-address">
+                    <strong>Jujuba</strong>
+                    <span>abrir quando estiver pronta ♡</span>
+                </div>
+            </button>
+
+            <div class="report-memento-layer" aria-hidden="true">
+                <figure class="report-memento memento-gamepad" style="--left:2.4vw;--top:8%;--size:78px;--rot:-7deg;--delay:-1.5s">
+                    <img src="https://api.iconify.design/mdi/gamepad.svg?color=%236b4a2f" alt="">
+                    <figcaption>jogos que viraram nossos</figcaption>
+                </figure>
+
+                <figure class="report-memento memento-d20" style="--right:3vw;--top:8%;--size:72px;--rot:8deg;--delay:-3.1s">
+                    <img src="https://api.iconify.design/game-icons/dice-twenty-faces-twenty.svg?color=%236b4a2f" alt="">
+                    <figcaption>d20 · caos controlado</figcaption>
+                </figure>
+
+                <figure class="report-memento memento-adventure brand" style="--left:1.8vw;--top:22%;--size:128px;--rot:3deg;--delay:-2.4s">
+                    <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Adventure_Time_logo2.png" alt="">
+                    <figcaption>mais uma maratona?</figcaption>
+                </figure>
+
+                <figure class="report-memento memento-chihiro brand" style="--right:1.5vw;--top:22%;--size:142px;--rot:-3deg;--delay:-4.2s">
+                    <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Spirited_Away_english_vector_logo.svg" alt="">
+                    <figcaption>Chihiro · Ghibli · conforto</figcaption>
+                </figure>
+
+                <figure class="report-memento memento-coffee" style="--left:2.2vw;--top:36%;--size:70px;--rot:-4deg;--delay:-5.1s">
+                    <img src="https://api.iconify.design/mdi/coffee.svg?color=%236b4a2f" alt="">
+                    <figcaption>cafés · Tour · receitas</figcaption>
+                </figure>
+
+                <figure class="report-memento memento-paw" style="--right:3.1vw;--top:36%;--size:68px;--rot:7deg;--delay:-2s">
+                    <img src="https://api.iconify.design/tabler/paw.svg?color=%236b4a2f" alt="">
+                    <figcaption>Amora · Zoe · Charlie</figcaption>
+                </figure>
+
+                <figure class="report-memento memento-floripa" style="--left:2.3vw;--top:50%;--size:68px;--rot:5deg;--delay:-3.8s">
+                    <img src="https://api.iconify.design/mdi/waves.svg?color=%236b4a2f" alt="">
+                    <figcaption>Floripa ♡</figcaption>
+                </figure>
+
+                <figure class="report-memento memento-sp" style="--right:2.7vw;--top:50%;--size:67px;--rot:-6deg;--delay:-1s">
+                    <img src="https://api.iconify.design/mdi/city-variant-outline.svg?color=%236b4a2f" alt="">
+                    <figcaption>São Paulo · BGS</figcaption>
+                </figure>
+
+                <figure class="report-memento memento-ghibli brand" style="--left:1.7vw;--top:64%;--size:136px;--rot:-2deg;--delay:-4.7s">
+                    <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Studio_Ghibli.svg" alt="">
+                    <figcaption>filmes que viraram abrigo</figcaption>
+                </figure>
+
+                <figure class="report-memento memento-nightmare brand" style="--right:2vw;--top:64%;--size:112px;--rot:3deg;--delay:-3s">
+                    <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/The_Nightmare_Before_Christmas_Logo.svg" alt="">
+                    <figcaption>Estranho Mundo de Jack</figcaption>
+                </figure>
+
+                <figure class="report-memento memento-bride" style="--left:2.5vw;--top:77%;--size:62px;--rot:6deg;--delay:-5.6s">
+                    <img src="https://api.iconify.design/mdi/skull-outline.svg?color=%236b4a2f" alt="">
+                    <figcaption>Noiva Cadáver</figcaption>
+                </figure>
+
+                <figure class="report-memento memento-cat" style="--right:2.6vw;--top:77%;--size:63px;--rot:-5deg;--delay:-1.9s">
+                    <img src="https://api.iconify.design/mdi/cat.svg?color=%236b4a2f" alt="">
+                    <figcaption>gatinhos · finalmente</figcaption>
+                </figure>
+
+                <figure class="report-memento memento-home" style="--left:3vw;--top:89%;--size:64px;--rot:-4deg;--delay:-3.5s">
+                    <img src="https://api.iconify.design/mage/home-heart.svg?color=%236b4a2f" alt="">
+                    <figcaption>nosso cantinho</figcaption>
+                </figure>
+
+                <figure class="report-memento memento-church" style="--right:3vw;--top:89%;--size:62px;--rot:4deg;--delay:-2.8s">
+                    <img src="https://api.iconify.design/hugeicons/church.svg?color=%236b4a2f" alt="">
+                    <figcaption>o primeiro encontro mais improvável</figcaption>
+                </figure>
+            </div>
+
+            <button id="reportReadingSkip" class="pageSkipButton report-reading-skip hidden" data-skip-page="report" type="button">mostrar carta inteira</button>
+
+            <article id="reportLetter" class="report-letter-paper" aria-hidden="true">
+                <div class="report-paper-fold report-paper-fold-v"></div>
+                <div class="report-paper-fold report-paper-fold-h"></div>
+                <div class="report-paper-edge report-paper-edge-top"></div>
+                <div class="report-paper-edge report-paper-edge-bottom"></div>
+
+                <div class="report-letter-content">
+                    <p class="report-letter-date">para você, depois de seis anos</p>
+                    <h2>Meu amor,</h2>
+                    <div id="reportText" class="report-letter-text"></div>
+                    <div id="reportLetterSignature" class="report-letter-signature hidden">
+                        <span>Com todo o meu amor,</span>
+                        <strong>Mateusinho colorado</strong>
+                        <small>e sim, eu ainda vou apertar suas bochechas.</small>
+                    </div>
+                    <div id="reportLetterControls" class="report-letter-controls hidden">
+                        <button id="completeReportButton">guardar esta carta</button>
+                        <button class="pageSkipButton" data-skip-page="report">terminar leitura</button>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- NOVA ATUALIZAÇÃO -->
+    <section id="updateScreen" class="screen module-screen" data-module-screen="update">
+        <div class="terminal workspace-terminal update-terminal update-teaser-terminal">
+            <div class="terminal-header">
+                <span>NOVA ATUALIZAÇÃO DISPONÍVEL</span>
+                <span>PACOTE LOCALIZADO</span>
+            </div>
+            <div class="workspace-content update-layout">
+                <p class="eyebrow">VERSÃO 7.0 ?</p>
+                <h2>UMA ATUALIZAÇÃO MAIOR DO QUE O ESPERADO.</h2>
+                <div id="updateText" class="typed-page-text update-text"></div>
+
+                <div class="update-package-card">
+                    <div><span>VERSÃO ATUAL</span><strong>6.0</strong></div>
+                    <div><span>VERSÃO DETECTADA</span><strong>7.0 ?</strong></div>
+                    <div><span>TIPO DE ALTERAÇÃO</span><strong>NÃO IDENTIFICADO</strong></div>
+                    <div><span>REQUISITO</span><strong>CONFIRMAÇÃO DA USUÁRIA</strong></div>
+                </div>
+
+                <div class="future-warning-card update-warning-card">
+                    <strong>O SISTEMA ESPERAVA APENAS MAIS UM ANO.</strong>
+                    <p>O pacote encontrado altera mais coisas do que a numeração da versão indica. Alguns arquivos permanecem bloqueados até o momento correto.</p>
+                </div>
+
+                <div class="screen-controls page-controls">
+                    <button class="pageSkipButton" data-skip-page="update">[ PULAR LEITURA ]</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================================
+         MEMÓRIA 001 / LEITOR / PUZZLE
+    ====================================================== -->
+
+    <!-- PUZZLE DE CORRUPÇÃO -->
+    <section id="glitchScreen" class="screen">
+        <div class="terminal compact-terminal glitch-terminal">
+            <div class="terminal-header danger-header">
+                <span>ALERTA DE SISTEMA</span>
+                <span>CORRUPÇÃO TEMPORAL DETECTADA</span>
+            </div>
+            <div class="glitch-flow">
+                <div id="glitchLeadText" class="glitch-block"></div>
+                <div id="glitchProtocolText" class="glitch-block protocol-block"></div>
+                <div id="glitchQuestionCard" class="glitch-question-card hidden">
+                    <div id="glitchQuestionCounter" class="glitch-question-counter"></div>
+                    <div id="glitchQuestionText" class="glitch-question-text"></div>
+                </div>
+                <div class="input-line hidden" id="glitchInputContainer">
+                    <span>&gt;</span>
+                    <input id="glitchInput" type="text" placeholder="RESPOSTA..." autocomplete="off">
+                </div>
+                <p id="glitchError" class="error hidden">DADOS INCORRETOS. O NÚCLEO ESTÁ COLAPSANDO. TENTE NOVAMENTE.</p>
+            </div>
+            <div class="screen-controls">
+                <button id="glitchBackButton">[ VOLTAR ]</button>
+                <button id="glitchSkipButton">[ PULAR ]</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- MEMÓRIA 001 -->
+    <section id="memoryScreen" class="screen">
+        <div class="terminal memory-terminal">
+            <div class="terminal-header">
+                <span>&gt; MEMÓRIA #001</span>
+                <span>STATUS: RESTAURADA</span>
+            </div>
+
+            <div class="memory-content">
+                <div id="memoryStep1" class="memory-step">
+                    <div class="separator">────────────────────────────────────</div>
+                    <div class="subjects-grid">
+                        <div class="subject-card">
+                            <h3 id="subjectATitle">SUJEITO A</h3>
+                            <div class="subject-line"></div>
+                            <p>SEXO: MASCULINO</p>
+                            <p>IDADE: 12 ANOS</p>
+                            <p>STATUS: DESCONHECIDO</p>
+                        </div>
+                        <div class="subject-card">
+                            <h3 id="subjectBTitle">SUJEITO B</h3>
+                            <div class="subject-line"></div>
+                            <p>SEXO: FEMININO</p>
+                            <p>IDADE: 12 ANOS</p>
+                            <p>STATUS: DESCONHECIDO</p>
+                        </div>
+                    </div>
+                    <div id="memorySubjectsText"></div>
+                </div>
+
+                <div id="memoryStep2" class="memory-step hidden"><div id="memoryBehaviorText"></div></div>
+                <div id="memoryStep3" class="memory-step hidden"><div id="memoryMotivationText"></div></div>
+
+                <div id="memoryStep4" class="memory-step hidden">
+                    <div id="photoChoiceText"></div>
+                    <div id="photoChoiceButtons" class="choice-buttons hidden">
+                        <button id="showPhoto">[ SIM ]</button>
+                        <button id="hidePhoto">[ NÃO ]</button>
+                    </div>
+                </div>
+
+                <div id="memoryStep5" class="memory-step hidden"><div id="photoAnalysisText"></div></div>
+
+                <div id="memoryStep6" class="memory-step visual-memory-step hidden">
+                    <div id="photoLoadText"></div>
+                    <div id="photoLoadProgress" class="progress-container visual-progress hidden">
+                        <div class="progress-bar"><div id="photoLoadFill"></div></div>
+                        <div id="photoLoadPercent">0%</div>
+                    </div>
+                    <div id="photoContainer" class="photo-reveal hidden">
+                        <div class="photo-reveal-status">MEMÓRIA VISUAL RECUPERADA</div>
+                        <div class="photo-frame photo-glitch-frame">
+                            <img id="memoryPhoto" src="assets/imagens/memoria-001.jpg" alt="Memória visual 001">
+                            <div class="photo-scan"></div>
+                        </div>
+                        <p class="memory-info">MEMÓRIA #001<br>IDADE: POR VOLTA DOS 12 ANOS<br>ARMAZENAMENTO PERMANENTE</p>
+                    </div>
+                </div>
+
+                <div id="memoryStep7" class="memory-step hidden"><div id="photoWarningText"></div></div>
+                <div id="memoryStep8" class="memory-step hidden"><div id="memoryFinalText"></div></div>
+            </div>
+
+            <div class="screen-controls memory-controls">
+                <button id="memoryBackButton">[ VOLTAR ]</button>
+                <button id="memorySkipButton">[ PULAR ]</button>
+                <button id="memoryNextButton">[ CONTINUAR ]</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- LEITOR DAS MEMÓRIAS 002–006 -->
+    <section id="readerScreen" class="screen">
+        <div class="terminal memory-terminal">
+            <div class="terminal-header">
+                <span id="readerTitle">&gt; REGISTRO ABERTO</span>
+                <span id="readerStatus">STATUS: RESTAURADO</span>
+            </div>
+            <div class="memory-content" id="readerContent"><div id="readerFxLayer" class="reader-fx-layer" aria-hidden="true"></div><div id="readerText"></div></div>
+            <div class="screen-controls memory-controls">
+                <button id="readerBackButton">[ VOLTAR ÀS MEMÓRIAS ]</button>
+                <button id="readerSkipButton">[ PULAR ]</button>
+                <button id="readerNextButton">[ PRÓXIMA MEMÓRIA ]</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- LIGHTBOX DA PAREDE DE MEMÓRIAS -->
+    <div id="photoLightbox" class="photo-lightbox hidden" role="dialog" aria-modal="true" aria-label="Visualização de memória">
+        <button id="lightboxClose" class="lightbox-close">[ FECHAR ]</button>
+        <img id="lightboxImage" src="" alt="Memória ampliada">
+        <div id="lightboxCaption" class="lightbox-caption"></div>
+    </div>
+
+
+    <!-- RECOMPENSA DE MÓDULO / ITENS DO PUZZLE -->
+    <div id="moduleItemOverlay" class="module-item-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="moduleItemTitle">
+        <div class="module-item-terminal">
+            <p id="moduleItemKicker" class="eyebrow">OBJETO NÃO CATALOGADO RECUPERADO</p>
+            <div id="moduleItemVisual" class="module-item-visual" aria-hidden="true"></div>
+            <h2 id="moduleItemTitle">ITEM LOCALIZADO</h2>
+            <p id="moduleItemDescription"></p>
+            <p id="moduleItemMeta" class="module-item-meta"></p>
+            <button id="storeModuleItemButton">[ GUARDAR NO INVENTÁRIO ]</button>
+        </div>
+    </div>
+
+
+    <!-- INSPEÇÃO DO INVENTÁRIO -->
+    <div id="inventoryInspectOverlay" class="inventory-inspect-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="inventoryInspectTitle">
+        <div class="inventory-inspect-terminal">
+            <div class="inventory-inspect-head">
+                <p id="inventoryInspectKicker" class="eyebrow">OBJETO NÃO CATALOGADO</p>
+                <button id="closeInventoryInspect">[ FECHAR ]</button>
+            </div>
+            <div id="inventoryInspectStage" class="inventory-inspect-stage" aria-label="Visualização do objeto"></div>
+            <h2 id="inventoryInspectTitle">ITEM</h2>
+            <p id="inventoryInspectCopy"></p>
+            <p id="inventoryInspectMeta" class="module-item-meta"></p>
+            <div class="inventory-inspect-actions">
+                <button id="inventoryInspectAction" class="hidden"></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

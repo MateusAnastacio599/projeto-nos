@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 900">
+  <defs><filter id="paper"><feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="3" seed="7" result="n"/><feBlend in="SourceGraphic" in2="n" mode="multiply"/></filter></defs>
+  <rect x="25" y="25" width="650" height="850" rx="8" fill="#e7dfcc" stroke="#847864" stroke-width="10"/>
+  <g opacity=".25" filter="url(#paper)"><rect x="35" y="35" width="630" height="830" fill="#c7bda7"/></g>
+  <g fill="none" stroke="#3e342c" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M180 420V300M180 300l-36 36M180 300l36 36"/><path d="M350 300l62 120H288Z"/><rect x="470" y="305" width="110" height="110"/><path d="M185 540c90-48 225-52 335 0M220 610c70-28 180-26 250 6"/>
+  </g>
+  <text x="350" y="735" text-anchor="middle" font-family="monospace" font-size="30" fill="#3e342c" letter-spacing="5">ORDEM NÃO IDENTIFICADA</text>
+  <text x="350" y="790" text-anchor="middle" font-family="monospace" font-size="20" fill="#6f6457">↑  △  □  ·  ?</text>
+</svg>

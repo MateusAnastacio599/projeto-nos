@@ -1,0 +1,16 @@
+Ícones genéricos: Lucide — https://lucide.dev/
+SVGs obtidos do repositório oficial:
+https://github.com/lucide-icons/lucide/tree/main/icons
+Licença incluída em LICENSE-Lucide.
+
+D20 e desenhos temáticos: vetores originais deste pacote.
+Referência pesquisada para D20: https://www.svgrepo.com/svg/351948/dice-d20
+O SVG dessa página não foi redistribuído: a fonte bloqueou o download.
+
+Referências culturais: pequenos desenhos vetoriais originais inspirados em
+Chihiro/Ghibli, Hora de Aventura e O Estranho Mundo de Jack.
+Floripa: ponte Hercílio Luz. São Paulo: referência à arquitetura da Luz.
+
+proposta-16bit.png: ilustração gerada com Imagegen e integrada à animação CSS.
+É uma ilustração afetiva de um casal, não um retrato fiel baseado em fotos.
+Prompt e características estão em ARTE-16BIT.txt.

@@ -1,0 +1,10 @@
+Pasta corrigida.
+
+O erro ERRO DE ASSET ocorria porque o puzzle-dev.js atual procura:
+assets/puzzle/models/disco_sincronizacao_v6_material.glb
+
+A pasta enviada continha apenas:
+assets/puzzle/models/disco_sincronizacao_v6_texturizado.glb
+
+Foi restaurado disco_sincronizacao_v6_material.glb.
+Os GLBs e PNGs desta pasta foram validados localmente.

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROJETO: NÓS — Protocolo da Mesa</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="puzzle-dev.css">
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "./vendor/three/build/three.module.js",
+            "three/addons/": "./vendor/three/examples/jsm/"
+        }
+    }
+    </script>
+</head>
+<body class="puzzle-dev-page phase-corrupt">
+    <div class="crt-overlay" aria-hidden="true"></div>
+
+    <header class="game-topbar">
+        <a class="system-link-button" href="puzzle.html">[ ← PROTOCOLO FINAL ]</a>
+        <div class="game-title">
+            <span>PROTOCOLO ORFEU // MESA DE RECONSTRUÇÃO</span>
+            <strong id="chapterTitle">AMBIENTE NÃO CATALOGADO</strong>
+        </div>
+        <div class="topbar-actions">
+            <a id="finalReportBtn" class="system-link-button hidden" href="index.html#report">[ RELATÓRIO DE 6 ANOS ]</a>
+            <button id="resetCameraBtn" class="hud-button" type="button">[ REENQUADRAR ]</button>
+            <button id="toggleLog" class="hud-button" type="button">[ REGISTRO ]</button>
+        </div>
+    </header>
+
+    <main class="game-shell">
+        <section id="gameViewport" class="game-viewport" aria-label="Cenário 3D do puzzle">
+            <canvas id="gameCanvas"></canvas>
+
+            <div class="viewport-vignette" aria-hidden="true"></div>
+            <div class="viewport-grain" aria-hidden="true"></div>
+
+            <div class="hud-hint" id="hudHint">
+                <span id="hudItemName">SEM ITEM EQUIPADO</span>
+                <strong id="hudItemHint">Investigue a mesa.</strong>
+            </div>
+
+            <div id="controllerHud" class="controller-hud hidden" aria-live="polite">
+                <span>ENTRADA</span>
+                <div id="controllerDots" class="controller-dots">— — — — — — —</div>
+            </div>
+
+            <div id="systemToast" class="system-toast hidden"></div>
+
+            <div id="loadingScreen" class="loading-screen">
+                <span>CARREGANDO CENÁRIO...</span>
+                <div class="loading-track"><i id="loadingBar"></i></div>
+            </div>
+
+            <div id="webglError" class="webgl-error hidden">
+                <strong>ERRO DE RENDERIZAÇÃO</strong>
+                <p>Abra esta página pelo Live Server e confirme que a aceleração de hardware está ativa.</p>
+            </div>
+        </section>
+
+        <section id="inventoryDock" class="inventory-dock">
+            <button id="toggleInventory" class="inventory-handle" type="button" aria-expanded="true">
+                <span>INVENTÁRIO</span>
+                <b>⌄</b>
+            </button>
+
+            <div class="inventory-content">
+                <div class="inventory-slots" id="inventorySlots">
+                    <button class="inventory-slot" data-item="photo" type="button">
+                        <img src="assets/imagens/memoria-001.jpg" alt="">
+                        <span>01</span>
+                        <small>FOTO</small>
+                    </button>
+                    <button class="inventory-slot" data-item="disc" type="button">
+                        <img src="assets/itens/medalhao-atual.svg" alt="">
+                        <span>02</span>
+                        <small>MEDALHÃO</small>
+                    </button>
+                    <button class="inventory-slot" data-item="key" type="button">
+                        <img src="assets/itens/chave-antiga.svg" alt="">
+                        <span>03</span>
+                        <small>CHAVE</small>
+                    </button>
+                    <button id="uvSlot" class="inventory-slot locked hidden" data-item="uv" type="button" disabled>
+                        <img src="assets/itens/lanterna-uv.svg" alt="">
+                        <span>04</span>
+                        <small>LANTERNA</small>
+                    </button>
+                </div>
+
+                <div class="inventory-inspect">
+                    <div class="inventory-actions">
+                        <button id="inspectItemBtn" type="button" disabled>[ INSPECIONAR ]</button>
+                        <button id="storeItemBtn" type="button" disabled>[ GUARDAR ]</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <aside id="systemLog" class="system-log hidden" aria-label="Registro do sistema">
+        <div class="system-log-head">
+            <span>REGISTRO LOCAL</span>
+            <button id="closeLog" type="button">×</button>
+        </div>
+        <div id="logEntries" class="log-entries"></div>
+    </aside>
+
+    <dialog id="photoDialog" class="photo-dialog">
+        <div class="photo-inspect-head">
+            <span>MEMÓRIA VISUAL 001</span>
+            <div class="inspect-head-actions">
+                <button id="resetPhotoView" type="button">[ ALINHAR ]</button>
+                <button id="flipPhoto3D" type="button">[ VIRAR 180° ]</button>
+                <button id="closePhoto" class="dialog-close" type="button">[ X ]</button>
+            </div>
+        </div>
+        <div id="photoInspectViewport" class="photo-inspect-viewport">
+            <canvas id="photoInspectCanvas"></canvas>
+            <div class="inspect-values" data-inspect-values="photo" aria-live="polite"></div>
+            <div class="photo-inspect-vignette" aria-hidden="true"></div>
+        </div>
+        <p id="photoHint">Mouse gira · W/S inclina · A/D gira · Q/E rola · Shift+WASD move · Z/C zoom · R alinha · P mostra valores.</p>
+    </dialog>
+
+
+
+
+    <dialog id="itemDialog" class="item-dialog">
+        <div class="generic-inspect-head">
+            <span id="itemDialogTitle">ITEM</span>
+            <div class="inspect-head-actions">
+                <small>W/S INCLINA · A/D GIRA · Q/E ROLA · SHIFT+WASD MOVE</small>
+                <button id="toggleInspectUvBtn" class="hidden" type="button">[ LIGAR UV ]</button>
+                <button id="rollD20Btn" class="hidden" type="button">[ ROLAR D20 ]</button>
+                <button id="resetItemView" type="button">[ ALINHAR ]</button>
+                <button id="closeItemDialog" class="dialog-close" type="button">[ X ]</button>
+            </div>
+        </div>
+        <div id="itemInspectViewport" class="item-inspect-viewport">
+            <canvas id="itemInspectCanvas"></canvas>
+            <div class="inspect-values" data-inspect-values="item" aria-live="polite"></div>
+            <div class="photo-inspect-vignette" aria-hidden="true"></div>
+        </div>
+        <p id="itemDialogHint">Inspeção livre do objeto.</p>
+    </dialog>
+
+
+
+    <dialog id="controllerDialog" class="controller-dialog">
+        <div class="controller-inspect-head">
+            <div>
+                <span>CONTROLE // ENTRADA DE 7 DÍGITOS</span>
+                <strong id="controllerInspectSequence">— — — — — — —</strong>
+            </div>
+            <div class="inspect-head-actions">
+                <button id="resetControllerView" type="button">[ ALINHAR CONTROLE ]</button>
+                <button id="closeControllerDialog" class="dialog-close" type="button">[ X ]</button>
+            </div>
+        </div>
+        <div id="controllerInspectViewport" class="controller-inspect-viewport">
+            <canvas id="controllerInspectCanvas"></canvas>
+            <div class="inspect-values" data-inspect-values="controller" aria-live="polite"></div>
+            <div class="photo-inspect-vignette" aria-hidden="true"></div>
+        </div>
+        <p id="controllerInspectHint">Clique nos botões · W/S inclina · A/D gira · Q/E rola · Z/C zoom · R alinha · P mostra valores.</p>
+    </dialog>
+
+    <dialog id="fragmentDialog" class="fragment-dialog">
+        <button id="closeFragment" class="dialog-close" type="button">[ X ]</button>
+        <div class="fragment-card">
+            <img src="assets/puzzle/textures/fragmento_codigo.png" alt="Fragmento de serviço com três comandos">
+        </div>
+        <p>O fragmento completa as três entradas apagadas da fotografia.</p>
+    </dialog>
+
+    <script type="module" src="puzzle-dev.js"></script>
+</body>
+</html>

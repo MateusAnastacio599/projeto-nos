@@ -1,0 +1,75 @@
+{
+  "object": "disco_sincronizacao_v2",
+  "design_goal": "Puzzle visual/mecânico revelado por luz UV. Sem perguntas ou respostas textuais.",
+  "fixed_symbols": [
+    "game",
+    "coffee",
+    "pets",
+    "home"
+  ],
+  "rings": {
+    "outer": {
+      "node": "ring_outer",
+      "uv_prefix": "ring_outer_uv_",
+      "steps": 8,
+      "step_degrees": 45,
+      "initial_step": 3,
+      "solution_step": 0
+    },
+    "middle": {
+      "node": "ring_middle",
+      "uv_prefix": "ring_middle_uv_",
+      "steps": 6,
+      "step_degrees": 60,
+      "initial_step": 2,
+      "solution_step": 0
+    },
+    "inner": {
+      "node": "ring_inner",
+      "uv_prefix": "ring_inner_uv_",
+      "steps": 6,
+      "step_degrees": 60,
+      "initial_step": 5,
+      "solution_step": 0
+    }
+  },
+  "uv": {
+    "default_visible": false,
+    "node_match": [
+      "ring_outer_uv_",
+      "ring_middle_uv_",
+      "ring_inner_uv_",
+      "core_uv_"
+    ],
+    "activation": "Após a sequência correta no controle, a luz espectral da mesa é ativada."
+  },
+  "success": {
+    "condition": "Todos os anéis em solution_step, com UV ativo.",
+    "feedback": [
+      "som de encaixe curto",
+      "travas laterais se projetam",
+      "núcleo central acende",
+      "anel fica apto a ser inserido na mesa"
+    ]
+  },
+  "future_threejs_logic": {
+    "rotate_together": [
+      [
+        "ring_outer",
+        "ring_outer_mark_",
+        "ring_outer_uv_"
+      ],
+      [
+        "ring_middle",
+        "ring_middle_mark_",
+        "ring_middle_uv_"
+      ],
+      [
+        "ring_inner",
+        "ring_inner_mark_",
+        "ring_inner_uv_"
+      ]
+    ],
+    "note": "As marcas e UV são nós separados; ao integrar no Three.js, girar todos os nós do grupo correspondente no mesmo ângulo."
+  }
+}

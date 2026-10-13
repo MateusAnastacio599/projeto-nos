@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROJETO: NÓS — Experiências Compartilhadas</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="experiencias.css">
+</head>
+<body class="experience-page phase-unlocking">
+    <div id="experienceChaos" aria-hidden="true"></div>
+    <div id="experienceCracks" aria-hidden="true"></div>
+    <div id="screenNoise" aria-hidden="true"></div>
+    <div class="crt-overlay" aria-hidden="true"></div>
+
+    <header class="experience-topbar">
+        <a class="system-link-button compact-link" href="index.html#features">[ ← SISTEMA ]</a>
+        <div class="experience-topbar-title">
+            <span>MÓDULO 03</span>
+            <strong>EXPERIÊNCIAS COMPARTILHADAS</strong>
+        </div>
+        <div class="experience-progress-mini">
+            <span id="expProgressText">0 / 6 REGISTRADAS</span>
+            <div class="experience-progress-track"><i id="expProgressFill"></i></div>
+        </div>
+    </header>
+
+    <main class="experience-shell">
+        <section id="lockedView" class="experience-gate hidden" aria-live="polite">
+            <p class="eyebrow">ACESSO NEGADO</p>
+            <h1>MÓDULO AINDA NÃO RECUPERADO.</h1>
+            <p>Finalize <strong>MEMÓRIAS REGISTRADAS</strong> para liberar este subsistema.</p>
+            <a class="system-link-button" href="index.html#memories">[ VOLTAR ÀS MEMÓRIAS ]</a>
+        </section>
+
+        <section id="experienceHubView" class="experience-view active">
+            <div class="experience-module-head">
+                <div>
+                    <p class="eyebrow">ARQUIVO DE PADRÕES COMPARTILHADOS</p>
+                    <h1>COISAS QUE FOMOS TORNANDO NOSSAS.</h1>
+                    <p class="experience-lead">
+                        O sistema tentou classificar estes dados como atividades. A hipótese começou a falhar:
+                        alguns jogos, histórias, lugares, comidas, companheiros e planos deixaram de ser só coisas que fizemos.
+                    </p>
+                </div>
+                <div class="experience-scan-box">
+                    <span>ARQUIVOS LOCALIZADOS</span><strong>06</strong>
+                    <span>PADRÕES REGISTRADOS</span><strong id="scanRegistered">00</strong>
+                    <span>CLASSIFICAÇÃO</span><strong id="scanClassification">INCOMPLETA</strong>
+                </div>
+            </div>
+
+            <div id="experienceMap" class="experience-map" aria-label="Arquivos de experiências compartilhadas">
+                <button class="experience-node" data-experience="jogos">
+                    <span class="node-number">01</span>
+                    <span class="node-state">DISPONÍVEL</span>
+                    <strong>JOGOS</strong>
+                    <small>mundos, campanhas e modo cooperativo</small>
+                </button>
+                <button class="experience-node" data-experience="series">
+                    <span class="node-number">02</span>
+                    <span class="node-state">DISPONÍVEL</span>
+                    <strong>SÉRIES QUE VIRARAM NOSSAS</strong>
+                    <small>maratonas, referências e histórias que ficaram</small>
+                </button>
+                <button class="experience-node" data-experience="comidas">
+                    <span class="node-number">03</span>
+                    <span class="node-state">DISPONÍVEL</span>
+                    <strong>CAFÉS, RESTAURANTES & RECEITAS</strong>
+                    <small>cafés, restaurantes, receitas e descontos do Tour</small>
+                </button>
+                <button class="experience-node" data-experience="companheiros">
+                    <span class="node-number">04</span>
+                    <span class="node-state">DISPONÍVEL</span>
+                    <strong>COMPANHEIROS</strong>
+                    <small>bichinhos incorporados ao projeto</small>
+                </button>
+                <button class="experience-node" data-experience="cantinho">
+                    <span class="node-number">05</span>
+                    <span class="node-state">DISPONÍVEL</span>
+                    <strong>NOSSO CANTINHO</strong>
+                    <small>um projeto futuro já em construção</small>
+                </button>
+                <button class="experience-node final-node" data-experience="coisas">
+                    <span class="node-number">06</span>
+                    <span class="node-state">BLOQUEADO</span>
+                    <strong>????????????</strong>
+                    <small>cinco padrões precisam ser registrados</small>
+                </button>
+            </div>
+
+            <section id="moduleCompletionPanel" class="module-completion-panel hidden">
+                <p class="eyebrow">ANÁLISE CONCLUÍDA</p>
+                <h2>UM NOVO OBJETO FOI LOCALIZADO.</h2>
+                <p>Todos os padrões foram registrados. O sistema agora consegue montar uma peça que antes aparecia apenas como fragmentos desconexos.</p>
+                <button id="completeExperiencesModule">[ RECUPERAR OBJETO ]</button>
+            </section>
+        </section>
+
+        <section id="experienceDetailView" class="experience-view">
+            <div class="detail-toolbar">
+                <button id="backToExperienceHub">[ ← SISTEMA ]</button>
+                <div>
+                    <span id="detailIndex" class="eyebrow">ARQUIVO 01</span>
+                    <strong id="detailStatus">NÃO REGISTRADO</strong>
+                </div>
+            </div>
+            
+            <nav id="experienceArchiveNav" class="experience-archive-nav" aria-label="Arquivos registrados">
+                <button type="button" data-archive-target="jogos"><span>01</span> JOGOS</button>
+                <button type="button" data-archive-target="series"><span>02</span> SÉRIES</button>
+                <button type="button" data-archive-target="comidas"><span>03</span> COMIDAS</button>
+                <button type="button" data-archive-target="companheiros"><span>04</span> BICHINHOS</button>
+                <button type="button" data-archive-target="cantinho"><span>05</span> CANTINHO</button>
+                <button type="button" data-archive-target="coisas"><span>06</span> COISAS NOSSAS</button>
+            </nav>
+            <div id="experienceDetailContent" class="experience-detail-content"></div>
+            <div class="experience-detail-actions">
+                <button id="registerExperienceButton">[ REGISTRAR ESTA EXPERIÊNCIA ]</button>
+                <button id="nextExperienceButton" class="hidden">[ PRÓXIMO ARQUIVO → ]</button>
+            </div>
+        </section>
+    </main>
+
+    <dialog id="experienceLightbox" class="experience-lightbox">
+        <button id="closeExperienceLightbox" class="lightbox-close" aria-label="Fechar">[ FECHAR ]</button>
+        <img id="experienceLightboxImage" alt="Imagem ampliada">
+        <p id="experienceLightboxCaption"></p>
+    </dialog>
+
+    <div id="itemRewardOverlay" class="item-reward-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="rewardTitle">
+        <div class="item-reward-terminal">
+            <p class="eyebrow">OBJETO NÃO CATALOGADO RECUPERADO</p>
+            <div class="reward-item-coin" aria-hidden="true"></div>
+            <h2 id="rewardTitle">MOEDA / MEDALHÃO ANTIGO</h2>
+            <p>
+                Um disco gasto, antigo, sem ornamentação excessiva. Há marcas recorrentes na superfície,
+                mas o mais importante é o formato: <strong>parece feito para encaixar em algum lugar</strong>.
+            </p>
+            <p class="reward-note">FUNÇÃO: DESCONHECIDA · DESTINO: INVENTÁRIO DE RECUPERAÇÃO</p>
+            <div class="reward-actions">
+                <button id="storeRewardButton">[ GUARDAR NO INVENTÁRIO ]</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="experiencias.js"></script>
+</body>
+</html>

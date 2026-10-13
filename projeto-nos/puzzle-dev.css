@@ -1,0 +1,1358 @@
+html, body {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+}
+
+body.puzzle-dev-page {
+    --bg: #070505;
+    --panel: rgba(10, 7, 7, 0.92);
+    --line: #7a4445;
+    --line-soft: rgba(122, 68, 69, 0.38);
+    --text: #f1ded2;
+    --muted: #baa59b;
+    --accent: #d5a25e;
+    --uv: #8b70ff;
+    --uv2: #73d9ff;
+    min-height: 100vh;
+    overflow: hidden;
+    background: #050303;
+    color: var(--text);
+}
+
+button, a, input {
+    font: inherit;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.game-topbar {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 30;
+    min-height: 58px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 18px;
+    padding: 10px 18px;
+    border-bottom: 1px solid var(--line);
+    background: rgba(8, 5, 5, 0.86);
+    backdrop-filter: blur(10px);
+}
+
+.game-title {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.game-title span,
+.game-title strong {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.game-title span {
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: .12em;
+}
+
+.game-title strong {
+    font-size: 13px;
+    letter-spacing: .08em;
+}
+
+.hud-button,
+.inventory-handle,
+.dialog-close,
+.system-log-head button {
+    border: 1px solid var(--line);
+    background: rgba(12, 8, 8, .86);
+    color: var(--text);
+    cursor: pointer;
+}
+
+.hud-button {
+    padding: 9px 12px;
+}
+
+.game-shell {
+    position: fixed;
+    inset: 59px 0 0 0;
+}
+
+.game-viewport {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 50% 34%, rgba(97, 72, 49, .14), transparent 38%),
+        linear-gradient(180deg, #090706 0%, #040303 100%);
+}
+
+#gameCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    outline: none;
+    touch-action: none;
+    cursor: grab;
+}
+
+#gameCanvas:active {
+    cursor: grabbing;
+}
+
+.viewport-vignette,
+.viewport-grain {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.viewport-vignette {
+    z-index: 2;
+    background: radial-gradient(circle at 50% 44%, transparent 50%, rgba(0,0,0,.66) 100%);
+}
+
+.viewport-grain {
+    z-index: 3;
+    opacity: .10;
+    mix-blend-mode: screen;
+    background:
+        radial-gradient(circle at 17% 24%, rgba(255,255,255,.08) 0 1px, transparent 1px 100%),
+        radial-gradient(circle at 63% 72%, rgba(255,255,255,.05) 0 1px, transparent 1px 100%);
+    background-size: 8px 8px, 11px 11px;
+}
+
+.hud-hint {
+    position: absolute;
+    z-index: 8;
+    left: 18px;
+    top: 18px;
+    max-width: min(420px, calc(100vw - 36px));
+    padding: 10px 12px;
+    border-left: 2px solid var(--accent);
+    background: rgba(7,5,5,.72);
+    backdrop-filter: blur(5px);
+    pointer-events: none;
+}
+
+.hud-hint span,
+.hud-hint strong {
+    display: block;
+}
+
+.hud-hint span {
+    margin-bottom: 4px;
+    color: var(--accent);
+    font-size: 11px;
+    letter-spacing: .12em;
+}
+
+.hud-hint strong {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--muted);
+}
+
+.controller-hud {
+    position: absolute;
+    z-index: 8;
+    top: 18px;
+    right: 18px;
+    min-width: 190px;
+    padding: 10px 12px;
+    border: 1px solid var(--line-soft);
+    background: rgba(8, 5, 5, .78);
+    pointer-events: none;
+}
+
+.controller-hud span {
+    display: block;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: .12em;
+    margin-bottom: 5px;
+}
+
+.controller-dots {
+    letter-spacing: .3em;
+    color: var(--accent);
+}
+
+.system-toast {
+    position: absolute;
+    z-index: 12;
+    left: 50%;
+    bottom: 130px;
+    transform: translateX(-50%);
+    max-width: min(620px, calc(100vw - 40px));
+    padding: 12px 16px;
+    border: 1px solid var(--line);
+    background: rgba(8, 5, 5, .92);
+    box-shadow: 0 16px 40px rgba(0,0,0,.34);
+    color: var(--text);
+    text-align: center;
+}
+
+.loading-screen,
+.webgl-error {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 14px;
+    background: rgba(5, 3, 3, .96);
+}
+
+.loading-track {
+    width: min(360px, 72vw);
+    height: 5px;
+    border: 1px solid var(--line);
+}
+
+.loading-track i {
+    display: block;
+    width: 4%;
+    height: 100%;
+    background: var(--accent);
+    transition: width .16s ease;
+}
+
+.webgl-error {
+    padding: 24px;
+    text-align: center;
+    color: var(--muted);
+}
+
+.inventory-dock {
+    position: absolute;
+    z-index: 15;
+    left: 50%;
+    bottom: 14px;
+    width: min(760px, calc(100vw - 32px));
+    transform: translateX(-50%);
+    transition: transform .26s ease;
+}
+
+.inventory-dock.collapsed {
+    transform: translate(-50%, calc(100% - 34px));
+}
+
+.inventory-handle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 164px;
+    margin: 0 auto -1px;
+    padding: 7px 11px;
+    background: rgba(10, 7, 7, .94);
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: .12em;
+}
+
+.inventory-dock.collapsed .inventory-handle b {
+    transform: rotate(180deg);
+}
+
+.inventory-content {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 14px;
+    align-items: center;
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    background: rgba(9, 6, 6, .92);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 18px 45px rgba(0,0,0,.36);
+}
+
+.inventory-slots {
+    display: flex;
+    gap: 10px;
+}
+
+.inventory-slot {
+    width: 74px;
+    height: 74px;
+    padding: 7px;
+    position: relative;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    border: 1px solid var(--line-soft);
+    background: rgba(18, 12, 12, .92);
+    color: var(--text);
+    cursor: pointer;
+}
+
+.inventory-slot img,
+.uv-icon {
+    width: 52px;
+    height: 52px;
+    object-fit: cover;
+}
+
+.uv-icon {
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    border: 1px solid rgba(132, 215, 255, .38);
+    background: linear-gradient(135deg, rgba(111, 86, 220, .38), rgba(17, 42, 60, .78));
+    color: #d9eeff;
+    letter-spacing: .14em;
+}
+
+.inventory-slot span,
+.inventory-slot small {
+    position: absolute;
+    font-size: 9px;
+    background: rgba(6,4,4,.72);
+    padding: 2px 4px;
+}
+
+.inventory-slot span {
+    left: 4px;
+    top: 4px;
+}
+
+.inventory-slot small {
+    right: 4px;
+    bottom: 4px;
+    color: var(--muted);
+}
+
+.inventory-slot:hover,
+.inventory-slot.active {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px rgba(213,162,94,.16) inset, 0 0 20px rgba(213,162,94,.12);
+}
+
+.inventory-slot.locked {
+    opacity: .34;
+    filter: grayscale(1);
+    cursor: not-allowed;
+}
+
+.inventory-inspect {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.inventory-inspect strong {
+    font-size: 13px;
+    letter-spacing: .08em;
+}
+
+.inventory-inspect span {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.system-log {
+    position: fixed;
+    z-index: 40;
+    right: 18px;
+    top: 78px;
+    width: min(390px, calc(100vw - 36px));
+    max-height: 58vh;
+    border: 1px solid var(--line);
+    background: rgba(7, 5, 5, .95);
+    box-shadow: 0 20px 60px rgba(0,0,0,.48);
+    backdrop-filter: blur(10px);
+}
+
+.system-log-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--line-soft);
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: .12em;
+}
+
+.system-log-head button {
+    width: 28px;
+    height: 28px;
+}
+
+.log-entries {
+    max-height: calc(58vh - 50px);
+    overflow: auto;
+    padding: 12px;
+    display: grid;
+    gap: 9px;
+}
+
+.log-entry {
+    border-left: 2px solid rgba(213,162,94,.46);
+    padding-left: 10px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.55;
+}
+
+.photo-dialog {
+    width: min(700px, calc(100vw - 32px));
+    border: 1px solid var(--line);
+    background: rgba(9,6,6,.97);
+    color: var(--text);
+    padding: 18px;
+    box-shadow: 0 24px 80px rgba(0,0,0,.58);
+}
+
+.photo-dialog::backdrop {
+    background: rgba(0,0,0,.72);
+    backdrop-filter: blur(6px);
+}
+
+.dialog-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 34px;
+    height: 34px;
+    z-index: 4;
+}
+
+.photo-card {
+    position: relative;
+    width: min(520px, 82vw);
+    aspect-ratio: 4 / 3;
+    margin: 10px auto 14px;
+    transform-style: preserve-3d;
+    transition: transform .55s cubic-bezier(.2,.7,.2,1);
+    cursor: pointer;
+}
+
+.photo-card.flipped {
+    transform: rotateY(180deg);
+}
+
+.photo-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    border: 10px solid #d9d0c1;
+    background: #d9d0c1;
+    box-shadow: 0 18px 50px rgba(0,0,0,.42);
+}
+
+.photo-face img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.photo-back {
+    transform: rotateY(180deg);
+}
+
+#photoHint {
+    margin: 0;
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+body.uv-active .game-viewport {
+    background:
+        radial-gradient(circle at 50% 35%, rgba(91, 64, 154, .12), transparent 34%),
+        linear-gradient(180deg, #040309 0%, #010102 100%);
+}
+
+body.uv-active .viewport-vignette {
+    background: radial-gradient(circle at 50% 44%, transparent 42%, rgba(0,0,0,.78) 100%);
+}
+
+@media (max-width: 800px) {
+    .game-topbar {
+        grid-template-columns: 1fr auto;
+    }
+
+    .game-title {
+        display: none;
+    }
+
+    .inventory-content {
+        grid-template-columns: 1fr;
+    }
+
+    .inventory-slots {
+        justify-content: center;
+    }
+
+    .inventory-inspect {
+        text-align: center;
+    }
+}
+
+/* =========================================================
+   V2 — AJUSTES DE UX / CENA LIMPA
+========================================================= */
+
+.system-toast {
+    top: 18px;
+    bottom: auto;
+}
+
+.inventory-dock.collapsed {
+    transform: translate(-50%, calc(100% - 30px));
+}
+
+.inventory-handle {
+    min-width: 176px;
+}
+
+.inventory-slot[draggable="true"] {
+    cursor: grab;
+}
+
+.inventory-slot[draggable="true"]:active {
+    cursor: grabbing;
+}
+
+.photo-dialog {
+    width: min(840px, calc(100vw - 32px));
+    padding: 16px;
+}
+
+.photo-inspect-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin: 0 44px 12px 0;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: .12em;
+}
+
+.photo-inspect-head button {
+    border: 1px solid var(--line);
+    background: rgba(12, 8, 8, .86);
+    color: var(--text);
+    padding: 8px 10px;
+    cursor: pointer;
+}
+
+.photo-inspect-viewport {
+    position: relative;
+    height: min(62vh, 540px);
+    border: 1px solid var(--line-soft);
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 50% 42%, rgba(213,162,94,.08), transparent 28%),
+        linear-gradient(180deg, #090706, #040303);
+}
+
+#photoInspectCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    touch-action: none;
+    cursor: grab;
+}
+
+#photoInspectCanvas:active {
+    cursor: grabbing;
+}
+
+.photo-inspect-vignette {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(circle at 50% 48%, transparent 52%, rgba(0,0,0,.6) 100%);
+}
+
+#photoHint {
+    margin-top: 12px;
+}
+
+.fragment-dialog {
+    width: min(760px, calc(100vw - 32px));
+    border: 1px solid var(--line);
+    background: rgba(9,6,6,.97);
+    color: var(--text);
+    padding: 18px;
+    box-shadow: 0 24px 80px rgba(0,0,0,.58);
+}
+
+.fragment-dialog::backdrop {
+    background: rgba(0,0,0,.72);
+    backdrop-filter: blur(6px);
+}
+
+.fragment-card {
+    margin: 16px auto 12px;
+    padding: 12px;
+    background: #d8ccb1;
+    box-shadow: 0 20px 50px rgba(0,0,0,.38);
+}
+
+.fragment-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.fragment-dialog p {
+    margin: 0;
+    color: var(--muted);
+    text-align: center;
+}
+
+.topbar-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.inventory-slot img,
+.inventory-slot .uv-icon {
+    pointer-events: none;
+    -webkit-user-drag: none;
+    user-select: none;
+}
+
+/* =========================================================
+   V3 — UX / inventário / inspeção livre
+========================================================= */
+.inventory-inspect {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 14px;
+}
+
+.inventory-copy {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.inventory-copy strong,
+.inventory-copy span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.inventory-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.inventory-actions button {
+    border: 1px solid var(--line);
+    background: rgba(13, 8, 8, .90);
+    color: var(--text);
+    padding: 8px 10px;
+    cursor: pointer;
+    font-size: 10px;
+    letter-spacing: .08em;
+}
+
+.inventory-actions button:hover:not(:disabled) {
+    border-color: var(--accent);
+    color: #fff1d8;
+}
+
+.inventory-actions button:disabled {
+    opacity: .32;
+    cursor: not-allowed;
+}
+
+body.uv-active #gameCanvas {
+    cursor: crosshair;
+}
+
+.item-dialog {
+    width: min(900px, calc(100vw - 36px));
+    height: min(760px, calc(100vh - 48px));
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: #080606;
+    color: var(--text);
+    box-shadow: 0 28px 80px rgba(0,0,0,.62);
+}
+
+.item-dialog::backdrop {
+    background: rgba(0,0,0,.76);
+    backdrop-filter: blur(7px);
+}
+
+.generic-inspect-head {
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px;
+    border-bottom: 1px solid var(--line-soft);
+    background: rgba(12,8,8,.96);
+}
+
+.generic-inspect-head span {
+    color: var(--accent);
+    letter-spacing: .12em;
+    font-size: 12px;
+}
+
+.generic-inspect-head small {
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: .08em;
+}
+
+.item-inspect-viewport {
+    position: relative;
+    height: calc(100% - 112px);
+    min-height: 420px;
+    background:
+        radial-gradient(circle at 50% 45%, rgba(204, 156, 90, .08), transparent 28%),
+        #050404;
+}
+
+#itemInspectCanvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    touch-action: none;
+    cursor: grab;
+}
+
+#itemInspectCanvas:active {
+    cursor: grabbing;
+}
+
+#itemDialogHint {
+    height: 54px;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 15px 18px;
+    border-top: 1px solid var(--line-soft);
+    color: var(--muted);
+    background: rgba(12,8,8,.96);
+}
+
+/* O toast nunca deve desaparecer atrás do inventário. */
+.system-toast {
+    top: 82px;
+    bottom: auto;
+}
+
+/* Mais espaço para a cena quando o inventário é recolhido. */
+.inventory-dock.collapsed {
+    transform: translate(-50%, calc(100% - 31px));
+}
+
+@media (max-width: 820px) {
+    .inventory-content {
+        grid-template-columns: 1fr;
+    }
+
+    .inventory-inspect {
+        grid-template-columns: 1fr;
+    }
+
+    .inventory-actions {
+        justify-content: flex-start;
+    }
+
+    .item-dialog {
+        width: calc(100vw - 18px);
+        height: calc(100vh - 18px);
+    }
+}
+
+/* =========================================================
+   CONTROLADOR 3D — INTERAÇÃO REAL / V5
+========================================================= */
+.controller-dialog {
+    width: min(980px, calc(100vw - 40px));
+    max-width: 980px;
+    color: #f0ddd4;
+    border: 1px solid #81494a;
+    background: #090606;
+    padding: 16px;
+}
+
+.controller-dialog::backdrop {
+    background: rgba(0,0,0,.78);
+    backdrop-filter: blur(5px);
+}
+
+.controller-inspect-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.controller-inspect-head > div {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.controller-inspect-head span {
+    color: #bda79f;
+    font-size: 12px;
+    letter-spacing: .12em;
+}
+
+.controller-inspect-head strong {
+    color: #d8a65d;
+    font-size: 18px;
+    letter-spacing: .18em;
+}
+
+.controller-inspect-head button {
+    border: 1px solid #81494a;
+    background: rgba(13,8,8,.94);
+    color: #f0ddd4;
+    padding: 10px 12px;
+    cursor: pointer;
+}
+
+.controller-inspect-viewport {
+    position: relative;
+    min-height: 600px;
+    height: min(68vh, 720px);
+    border: 1px solid rgba(138,78,79,.45);
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 50% 42%, rgba(216,166,93,.08), transparent 34%),
+        linear-gradient(180deg,#080707,#030303);
+}
+
+#controllerInspectCanvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    touch-action: none;
+}
+
+#controllerInspectHint {
+    color: #bda79f;
+    margin: 12px 4px 0;
+    line-height: 1.6;
+}
+
+@media (max-width: 720px) {
+    .controller-inspect-head {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+    .controller-inspect-viewport {
+        min-height: 480px;
+        height: 62vh;
+    }
+}
+
+
+/* =========================================================
+   V7 — cena integrada / inspeção livre
+========================================================= */
+.controller-dialog > .dialog-close {
+    top: 12px;
+    right: 12px;
+}
+
+.controller-inspect-head button {
+    margin-right: 4px;
+}
+
+#controllerInspectSequence,
+#controllerDots {
+    font-variant-numeric: tabular-nums;
+    word-spacing: .18em;
+}
+
+#photoInspectCanvas,
+#itemInspectCanvas,
+#controllerInspectCanvas {
+    cursor: grab;
+}
+
+#photoInspectCanvas:active,
+#itemInspectCanvas:active,
+#controllerInspectCanvas:active {
+    cursor: grabbing;
+}
+
+
+/* =========================================================
+   V8 — inspeção estável / feedback do controle / viewport
+========================================================= */
+.inspect-head-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.inspect-head-actions button {
+    border: 1px solid var(--line);
+    background: rgba(10,7,7,.92);
+    color: var(--text);
+    padding: 9px 12px;
+    cursor: pointer;
+    font-family: inherit;
+    letter-spacing: .08em;
+}
+
+.controller-dialog {
+    max-height: calc(100dvh - 20px);
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.controller-dialog[open] {
+    display: flex;
+    flex-direction: column;
+}
+
+.controller-inspect-head,
+#controllerInspectHint {
+    flex: 0 0 auto;
+}
+
+.controller-inspect-viewport {
+    flex: 1 1 auto;
+    min-height: 320px;
+    height: min(58dvh, 610px);
+    max-height: calc(100dvh - 185px);
+}
+
+#controllerInspectHint {
+    min-height: 2.8em;
+    margin-bottom: 0;
+}
+
+.controller-dialog.controller-error #controllerInspectSequence {
+    animation: controller-sequence-error .34s ease;
+    color: #ff7c72;
+}
+
+.controller-dialog.controller-success {
+    border-color: rgba(198, 167, 91, .9);
+    box-shadow: 0 0 0 1px rgba(198,167,91,.18), 0 0 34px rgba(198,167,91,.12);
+}
+
+.controller-dialog.controller-success #controllerInspectSequence,
+.controller-dialog.controller-success #controllerInspectHint {
+    color: #e1c178;
+}
+
+@keyframes controller-sequence-error {
+    0%, 100% { transform: translateX(0); }
+    30% { transform: translateX(-6px); }
+    65% { transform: translateX(5px); }
+}
+
+.photo-dialog,
+.item-dialog {
+    max-height: calc(100dvh - 24px);
+}
+
+@media (max-height: 760px) {
+    .controller-inspect-viewport { height: 52dvh; min-height: 280px; }
+    .controller-dialog { padding: 12px; }
+    #controllerInspectHint { font-size: 11px; line-height: 1.35; }
+}
+
+/* =========================================================
+   V11 — inspeção guiada / arraste de superfície
+========================================================= */
+.inspect-orbit-pad {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 6;
+    display: grid;
+    grid-template-columns: 34px 34px 34px;
+    grid-template-rows: 34px 34px 34px;
+    gap: 4px;
+    pointer-events: auto;
+}
+.inspect-orbit-pad button {
+    border: 1px solid rgba(216,166,93,.52);
+    background: rgba(8,6,6,.82);
+    color: #e2c584;
+    font: 700 17px/1 monospace;
+    cursor: pointer;
+    padding: 0;
+}
+.inspect-orbit-pad button:hover {
+    background: rgba(216,166,93,.14);
+    border-color: rgba(216,166,93,.92);
+}
+.inspect-orbit-pad [data-orbit="up"] { grid-column: 2; grid-row: 1; }
+.inspect-orbit-pad [data-orbit="left"] { grid-column: 1; grid-row: 2; }
+.inspect-orbit-pad [data-orbit="right"] { grid-column: 3; grid-row: 2; }
+.inspect-orbit-pad [data-orbit="down"] { grid-column: 2; grid-row: 3; }
+
+.controller-dialog {
+    width: min(1180px, calc(100vw - 24px));
+    max-width: 1180px;
+}
+.controller-inspect-viewport {
+    height: min(70dvh, 760px);
+    max-height: calc(100dvh - 165px);
+    min-height: 430px;
+}
+.item-dialog {
+    width: min(980px, calc(100vw - 28px));
+    height: min(820px, calc(100dvh - 28px));
+}
+.item-inspect-viewport { min-height: 500px; }
+
+/* Deixa claro que itens na mesa podem ser arrastados sem sugerir eixo Z livre. */
+#gameCanvas { touch-action: none; }
+
+@media (max-width: 760px) {
+    .inspect-orbit-pad { right: 8px; transform: translateY(-50%) scale(.88); transform-origin: right center; }
+    .controller-inspect-viewport { min-height: 340px; height: 62dvh; }
+}
+
+
+/* =========================================================
+   V12 — inspeção de precisão / controles consistentes
+========================================================= */
+.dialog-close {
+    width: auto;
+    min-width: 48px;
+    height: 36px;
+    padding: 0 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: .08em;
+    border-radius: 0;
+    box-sizing: border-box;
+}
+.dialog-close:hover,
+.dialog-close:focus-visible {
+    border-color: rgba(226,197,132,.95);
+    color: #f0d79f;
+    outline: none;
+}
+.controller-dialog > .dialog-close { top: 12px; right: 12px; }
+.controller-dialog { width: min(1320px, calc(100vw - 18px)); }
+.controller-inspect-viewport { height: min(74dvh, 820px); min-height: 500px; }
+.photo-dialog { width: min(980px, calc(100vw - 24px)); }
+.photo-inspect-viewport { height: min(68dvh, 680px); }
+.item-dialog { width: min(1100px, calc(100vw - 24px)); }
+.item-inspect-viewport { min-height: 560px; height: min(68dvh, 700px); }
+.inspect-orbit-pad button:focus-visible {
+    outline: 1px solid #f0d79f;
+    outline-offset: 2px;
+}
+@media (max-height: 760px) {
+    .controller-inspect-viewport { min-height: 360px; height: 64dvh; }
+    .item-inspect-viewport { min-height: 360px; height: 58dvh; }
+    .photo-inspect-viewport { height: 58dvh; }
+}
+
+
+/* =========================================================
+   V14 — inspeção compacta + valores de alinhamento
+========================================================= */
+.inspect-orbit-pad { display: none !important; }
+
+.item-dialog[open],
+.photo-dialog[open],
+.controller-dialog[open] {
+    display: flex;
+    flex-direction: column;
+}
+
+.generic-inspect-head,
+.photo-inspect-head,
+.controller-inspect-head {
+    flex: 0 0 auto;
+    min-height: 70px;
+    box-sizing: border-box;
+}
+
+.item-inspect-viewport,
+.photo-inspect-viewport,
+.controller-inspect-viewport {
+    flex: 1 1 auto;
+    height: auto !important;
+    min-height: 0;
+}
+
+#itemDialogHint,
+#photoHint,
+#controllerInspectHint {
+    flex: 0 0 auto;
+    min-height: 0;
+    height: auto;
+    margin: 0;
+    padding: 12px 18px;
+    box-sizing: border-box;
+}
+
+.item-dialog,
+.photo-dialog,
+.controller-dialog {
+    height: min(860px, calc(100dvh - 28px));
+}
+
+.inspect-values {
+    position: absolute;
+    left: 14px;
+    bottom: 14px;
+    z-index: 5;
+    display: none;
+    max-width: min(560px, calc(100% - 28px));
+    padding: 8px 10px;
+    border: 1px solid rgba(226,197,132,.55);
+    background: rgba(6,4,4,.88);
+    color: #e8c77c;
+    font: 11px/1.45 'Courier New', monospace;
+    letter-spacing: .04em;
+    white-space: pre-wrap;
+    pointer-events: none;
+}
+.inspect-values.visible { display: block; }
+
+@media (max-height: 760px) {
+    .item-dialog,
+    .photo-dialog,
+    .controller-dialog { height: calc(100dvh - 14px); }
+}
+
+
+/* =========================================================
+   V15 — cabeçalhos alinhados, D20 e inspeção final
+========================================================= */
+.inspect-head-actions {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    min-width: 0;
+}
+.inspect-head-actions small { white-space: nowrap; }
+.inspect-head-actions button,
+.inspect-head-actions .dialog-close,
+.controller-inspect-head .inspect-head-actions button {
+    position: static !important;
+    inset: auto !important;
+    margin: 0 !important;
+    height: 46px;
+    min-height: 46px;
+    padding: 0 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    line-height: 1;
+}
+.inspect-head-actions .dialog-close {
+    width: auto;
+    min-width: 72px;
+}
+.controller-inspect-head {
+    gap: 18px;
+}
+.controller-inspect-head > div:first-child { flex: 1 1 auto; }
+#rollD20Btn.hidden { display: none !important; }
+#rollD20Btn:disabled { opacity: .45; cursor: wait; }
+
+@media (max-width: 900px) {
+    .inspect-head-actions { gap: 7px; }
+    .inspect-head-actions small { display: none; }
+    .inspect-head-actions button,
+    .inspect-head-actions .dialog-close { padding: 0 11px; min-width: 58px; }
+}
+
+
+/* =========================================================
+   V16 — inventário limpo / UV na inspeção / puzzle final
+========================================================= */
+.inventory-copy {
+    display: none !important;
+}
+.inventory-inspect {
+    grid-template-columns: auto !important;
+    justify-content: end;
+}
+.inventory-actions {
+    justify-content: flex-end;
+}
+#toggleInspectUvBtn.active {
+    border-color: var(--uv2) !important;
+    color: #cbdcff !important;
+    box-shadow: 0 0 18px rgba(115,217,255,.18);
+}
+
+/* =========================================================
+   V17 — revisão final de interface / inventário / relatório
+========================================================= */
+:root {
+    --puzzle-radius: 2px;
+}
+
+.game-topbar,
+.inventory-content,
+.item-dialog,
+.photo-dialog,
+.controller-dialog,
+.system-log,
+.system-toast {
+    border-radius: var(--puzzle-radius);
+}
+
+.game-topbar {
+    min-height: 60px;
+    padding: 10px 20px;
+}
+
+.topbar-actions {
+    gap: 10px;
+}
+
+.topbar-actions > * {
+    min-height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+#finalReportBtn {
+    border-color: rgba(213,162,94,.82);
+    color: #efd59b;
+    box-shadow: 0 0 20px rgba(213,162,94,.10);
+}
+
+.inventory-dock {
+    width: min(660px, calc(100vw - 28px));
+}
+
+.inventory-content {
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    gap: 16px;
+    padding: 11px 12px;
+}
+
+.inventory-inspect {
+    display: block !important;
+    min-width: max-content;
+}
+
+.inventory-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.inventory-slot {
+    width: 76px;
+    height: 76px;
+}
+
+.inventory-slot img {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+    filter: drop-shadow(0 5px 8px rgba(0,0,0,.35));
+}
+
+.generic-inspect-head,
+.photo-inspect-head,
+.controller-inspect-head {
+    padding: 12px 14px;
+    min-height: 62px;
+    gap: 12px;
+}
+
+.inspect-head-actions {
+    flex-wrap: nowrap;
+    gap: 8px;
+}
+
+.inspect-head-actions button,
+.inspect-head-actions .dialog-close,
+.controller-inspect-head .inspect-head-actions button {
+    height: 42px;
+    min-height: 42px;
+    padding: 0 14px;
+    white-space: nowrap;
+}
+
+.inspect-head-actions .dialog-close {
+    min-width: 58px;
+}
+
+.item-dialog,
+.photo-dialog,
+.controller-dialog {
+    width: min(1180px, calc(100vw - 26px));
+    height: min(860px, calc(100dvh - 26px));
+}
+
+.item-inspect-viewport,
+.photo-inspect-viewport,
+.controller-inspect-viewport {
+    min-height: 0 !important;
+    flex: 1 1 auto;
+}
+
+#itemDialogHint,
+#photoHint,
+#controllerInspectHint {
+    font-size: 11px;
+    line-height: 1.45;
+    color: var(--muted);
+    min-height: 40px;
+}
+
+#toggleInspectUvBtn.active {
+    background: rgba(75,55,130,.28);
+}
+
+@media (max-width: 760px) {
+    .game-topbar { padding-inline: 10px; }
+    #finalReportBtn { display: none; }
+    .inventory-dock { width: calc(100vw - 16px); }
+    .inventory-content { grid-template-columns: 1fr !important; }
+    .inventory-actions { justify-content: center; }
+    .inspect-head-actions { flex-wrap: wrap; justify-content: flex-end; }
+}
